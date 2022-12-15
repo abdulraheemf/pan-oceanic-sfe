@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pan_oceanic_sfe/Providers/firestore_provider.dart';
 import 'package:provider/provider.dart';
-
 import 'Admin/home_page.dart';
 import 'Auth/auth.dart';
 import 'Providers/auth_provider.dart';
@@ -33,6 +32,7 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
+        title: 'Pan Oceanic SFE',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           scaffoldBackgroundColor: Color(0xFFE4E4E4),

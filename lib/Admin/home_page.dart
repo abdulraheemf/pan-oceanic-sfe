@@ -10,7 +10,6 @@ class AdminHomePage extends StatefulWidget {
 }
 
 class _AdminHomePageState extends State<AdminHomePage> {
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   late double height;
   late double width;
   @override
