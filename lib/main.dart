@@ -1,8 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pan_oceanic_sfe/Providers/firestore_provider.dart';
 import 'package:provider/provider.dart';
 
+import 'Admin/home_page.dart';
 import 'Auth/auth.dart';
 import 'Providers/auth_provider.dart';
 
@@ -25,6 +28,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<AuthProvider>(
           create: (_) => AuthProvider(),
         ),
+        ChangeNotifierProvider<FirestoreProvider>(
+          create: (_) => FirestoreProvider(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -32,7 +38,7 @@ class MyApp extends StatelessWidget {
           scaffoldBackgroundColor: Color(0xFFE4E4E4),
           textTheme: GoogleFonts.latoTextTheme(),
         ),
-        home: const Authentication(),
+        home: (FirebaseAuth.instance.currentUser==null)?Authentication():AdminHomePage(),
       ),
     );
   }
