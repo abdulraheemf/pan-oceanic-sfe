@@ -13,5 +13,16 @@ class StorageProvider with ChangeNotifier {
     return url;
   }
 
+  Future<String> getFrontPictureID() async {
+    final ref = FirebaseStorage.instance.ref().child('${_auth.currentUser!.uid}-frontID.jpg');
+    var url = await ref.getDownloadURL();
+    return url;
+  }
+
+  Future<String> getBackPictureID() async {
+    final ref = FirebaseStorage.instance.ref().child('${_auth.currentUser!.uid}-backID.jpg');
+    var url = await ref.getDownloadURL();
+    return url;
+  }
 
 }

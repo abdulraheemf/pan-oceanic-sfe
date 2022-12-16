@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class CustomSnack {
   SnackBar customSnackBar(String word,Color color,double height, double width){
     return SnackBar(content: Padding(
-      padding: EdgeInsets.fromLTRB(10,5,10,5),
+      padding: const EdgeInsets.fromLTRB(10,5,10,5),
       child: Material(
         borderRadius: BorderRadius.circular(5),
         elevation: 5,
@@ -20,16 +20,16 @@ class CustomSnack {
                 width: 10,
                 decoration: BoxDecoration(
                     color: color,
-                    borderRadius: BorderRadius.only(
+                    borderRadius: const BorderRadius.only(
                         bottomLeft: Radius.circular(5),
                         topLeft: Radius.circular(5)
                     )
                 ),
               ),
-              SizedBox(width: 10,),
+              const SizedBox(width: 10,),
               Image.asset('images/logos/icon.png',height: height*0.08,),
-              SizedBox(width: 10,),
-              Expanded(child: Text(word,style: TextStyle(
+              const SizedBox(width: 10,),
+              Expanded(child: Text(word,style: const TextStyle(
                   fontSize: 15
               ),))
             ],

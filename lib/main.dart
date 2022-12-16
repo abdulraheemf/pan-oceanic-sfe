@@ -14,12 +14,11 @@ Future<void> main() async {
   await Firebase.initializeApp(
       options: const FirebaseOptions(apiKey: "AIzaSyDafrO07pb7ZzmDq9z7gBPY6MKIRWNbebc", appId: "1:272123219077:web:981b2dc3f983009929adec", messagingSenderId: "272123219077", projectId: "panoceanic-sfe",authDomain: "panoceanic-sfe.firebaseapp.com",storageBucket: "panoceanic-sfe.appspot.com")
   );
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
+  MyApp({super.key});
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -41,6 +40,12 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           scaffoldBackgroundColor: Color(0xFFE4E4E4),
           textTheme: GoogleFonts.latoTextTheme(),
+          appBarTheme: AppBarTheme(
+            centerTitle: true,
+            backgroundColor: const Color(0xFFe4e4e4),
+            elevation: 0,
+            iconTheme: const IconThemeData(color: Colors.black),
+          )
         ),
         home: (FirebaseAuth.instance.currentUser==null)?Authentication():AdminHomePage(),
       ),

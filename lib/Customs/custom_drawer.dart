@@ -6,33 +6,38 @@ import 'package:pan_oceanic_sfe/Customs/custom_alert.dart';
 import 'package:pan_oceanic_sfe/Providers/auth_provider.dart';
 import 'package:pan_oceanic_sfe/Providers/firestore_provider.dart';
 import 'package:pan_oceanic_sfe/Providers/storage_provider.dart';
+import 'package:pan_oceanic_sfe/Services/constants.dart';
 import 'package:provider/provider.dart';
 
 class CustomDrawerAdmin extends StatefulWidget {
   double height;
   double width;
-  CustomDrawerAdmin({required this.height,required this.width});
+  CustomDrawerAdmin({super.key, required this.height,required this.width});
 
   @override
   State<CustomDrawerAdmin> createState() => _CustomDrawerAdminState();
 }
 
 class _CustomDrawerAdminState extends State<CustomDrawerAdmin> {
-  late final firestoreProvider;
-  late final storageProvider;
-  late final authProvider;
+  late final dynamic firestoreProvider;
+  late final dynamic storageProvider;
+  late final dynamic authProvider;
+  late Stream<DocumentSnapshot<Map<String, dynamic>>> getCurrentUserStream;
+  late final Future<String>getProfilePictureFuture;
   @override
   void initState(){
     super.initState();
     firestoreProvider = Provider.of<FirestoreProvider>(context, listen: false);
     storageProvider = Provider.of<StorageProvider>(context, listen: false);
     authProvider = Provider.of<AuthProvider>(context, listen: false);
+    getCurrentUserStream = firestoreProvider.getCurrentUserStream();
+    getProfilePictureFuture = storageProvider.getProfilePicture();
     
   }
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
-      stream: firestoreProvider.getCurrentUserStream(),
+      stream: getCurrentUserStream,
         builder: (_, snapshot) {
     if (snapshot.connectionState==ConnectionState.waiting) {
       return const Center(
@@ -52,26 +57,25 @@ class _CustomDrawerAdminState extends State<CustomDrawerAdmin> {
         children: [
           SizedBox(height: widget.height*0.05),
           FutureBuilder(
-            future: storageProvider.getProfilePicture(),
+            future: getProfilePictureFuture,
             builder: (context, AsyncSnapshot<String> snapshot) {
               if(snapshot.connectionState == ConnectionState.waiting){
                 return CircleAvatar(
-                  backgroundColor: const Color(0xFFe4e4e4),
+                  backgroundColor: MyConstants.scaffoldBackgroundColor,
                   radius: widget.height*0.12,
                   child: const SpinKitCircle(
                     color: Colors.black,
                   ),
                 );
               } else if(!snapshot.hasData){
-                print(snapshot.data);
                 return CircleAvatar(
-                  backgroundColor: const Color(0xFFe4e4e4),
+                  backgroundColor: MyConstants.scaffoldBackgroundColor,
                   radius: widget.height*0.12,
                   child: const Text('ERROR!',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 30),),
                 );
               }else{
                 return CircleAvatar(
-                  backgroundColor: const Color(0xFFe4e4e4),
+                  backgroundColor: MyConstants.scaffoldBackgroundColor,
                   radius: widget.height*0.12,
                   child: ClipOval(
                     child: FadeInImage(
@@ -121,7 +125,7 @@ class MenuDrawer extends StatelessWidget {
   double height;
   String name;
   IconData icon;
-  MenuDrawer({required this.height,required this.name,required this.icon});
+  MenuDrawer({super.key, required this.height,required this.name,required this.icon});
 
   @override
   Widget build(BuildContext context) {
@@ -129,7 +133,7 @@ class MenuDrawer extends StatelessWidget {
       padding: const EdgeInsets.only(left: 7,right: 7),
       child: Container(
         decoration: BoxDecoration(
-          color: const Color(0xFFe4e4e4),
+          color: MyConstants.scaffoldBackgroundColor,
           borderRadius: BorderRadius.circular(5)
         ),
         height: height*0.06,

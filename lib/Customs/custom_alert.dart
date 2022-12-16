@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lottie/lottie.dart';
+import 'package:pan_oceanic_sfe/Services/constants.dart';
 
 
 class ShowDialog{
@@ -12,7 +13,7 @@ class ShowDialog{
           return Center(
             child: Container(
               decoration: BoxDecoration(
-                  color: const Color(0xFFe4e4e4),
+                  color: MyConstants.scaffoldBackgroundColor,
                   borderRadius: BorderRadius.circular(5)
               ),
               height: height*0.6,

@@ -4,12 +4,13 @@ const TEMP = 'flutter-temp-cache';
 const CACHE_NAME = 'flutter-app-cache';
 const RESOURCES = {
   "404.html": "0a27a4163254fc8fce870c8cc3a3f94f",
-"assets/AssetManifest.json": "4b867d811b1ef0dce355943088425e26",
+"assets/AssetManifest.json": "176fabbad830d7055e5e7f676611141a",
 "assets/FontManifest.json": "dc3d03800ccca4601324923c0b1d6d57",
 "assets/fonts/MaterialIcons-Regular.otf": "95db9098c58fd6db106f1116bae85a0b",
 "assets/images/logos/full%2520logo.png": "0548169c3b32371a6ca34c6176cdd7f2",
 "assets/images/logos/icon.png": "da5c5c03414b7012b53de18ec5d42ba1",
 "assets/images/lotties/log-out.json": "61483544acd6e8801c3a05843389fef0",
+"assets/images/lotties/man-working.json": "d314ea4d93495ad3b96ddabf8953a27e",
 "assets/images/lotties/sales.json": "a0f1c3948cfa18829a76d9c8e63e2da6",
 "assets/NOTICES": "8affbf1296c42cadfa54729d8c5d5dec",
 "assets/packages/cupertino_icons/assets/CupertinoIcons.ttf": "6d342eb68f170c97609e9da345464e5e",
@@ -23,11 +24,11 @@ const RESOURCES = {
 "icons/android-chrome-192x192.png": "ea1d652fac0a9d4d646f31bc502d4786",
 "icons/android-chrome-512x512.png": "5c3392e885184ab390012c0c244429fc",
 "icons/apple-touch-icon.png": "77e5a377df8ea7b28dee76f37ce30899",
-"index.html": "1cc4007c2ad4b31c65bd0b076c4037e8",
-"/": "1cc4007c2ad4b31c65bd0b076c4037e8",
+"index.html": "585f816dc1b1d2ded99499b6838f4c45",
+"/": "585f816dc1b1d2ded99499b6838f4c45",
 "loader.css": "7a3fdbc0f4dd14065d10ef77249c32b6",
 "logo.png": "ea1d652fac0a9d4d646f31bc502d4786",
-"main.dart.js": "d5581fa42b3912c196ff998b8a81e694",
+"main.dart.js": "953b6aa61c0608ea80dd04cc0a8f3608",
 "manifest.json": "9712e0977e1b7b7a90623cbe6c6ad886",
 "version.json": "a8355eb65f3a868ec1837b3561efcc2a"
 };

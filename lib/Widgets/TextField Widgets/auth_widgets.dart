@@ -14,12 +14,12 @@ class _CustomTextFieldState extends State<CustomTextField> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(right: 30),
+      padding: const EdgeInsets.only(right: 30),
       child: Row(
         children: [
           Text(widget.description),
           Expanded(child: Padding(
-            padding: EdgeInsets.only(left: 10),
+            padding: const EdgeInsets.only(left: 10),
             child: TextFormField(
               controller: widget.control,
               obscureText: widget.isObscure,
