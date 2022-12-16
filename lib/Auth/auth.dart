@@ -103,7 +103,7 @@ class _AuthenticationState extends State<Authentication> {
                 ),
               ),
             ),
-            Lottie.asset('images/sales.json',height: height,width: width*0.7)
+            Lottie.asset('images/lotties/sales.json',height: height,width: width*0.7)
           ],
         )
     );

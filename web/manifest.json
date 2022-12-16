@@ -1,11 +1,11 @@
 {
-    "name": "pan_oceanic_sfe",
-    "short_name": "pan_oceanic_sfe",
+    "name": "Pan Oceanic SFE",
+    "short_name": "Pan SFE",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "Pan Oceanic SFE",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

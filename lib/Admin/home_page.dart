@@ -29,8 +29,8 @@ class _AdminHomePageState extends State<AdminHomePage> {
           fontWeight: FontWeight.bold
         ),),
       ),
-      drawer: const Drawer(
-        child: CustomDrawerAdmin(),
+      drawer: Drawer(
+        child: CustomDrawerAdmin(height: height,width: width,),
       ),
     );
   }

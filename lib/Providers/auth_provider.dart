@@ -14,4 +14,8 @@ class AuthProvider with ChangeNotifier {
     }
   }
 
+  void signOut(){
+    _auth.signOut();
+  }
+
 }

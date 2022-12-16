@@ -1,3 +1,4 @@
-2022/12/15-09:17:37.869 26c0 Reusing MANIFEST C:\Users\abdul\AppData\Local\Temp\flutter_tools.a03606b2\flutter_tools_chrome_device.34355c85\Default\Extension Scripts/MANIFEST-000001
-2022/12/15-09:17:37.871 26c0 Recovering log #3
-2022/12/15-09:17:37.872 26c0 Reusing old log C:\Users\abdul\AppData\Local\Temp\flutter_tools.a03606b2\flutter_tools_chrome_device.34355c85\Default\Extension Scripts/000003.log 
+2022/12/15-11:46:34.987 3ee8 Log #3: 0 ops saved to Table #4 OK
+2022/12/15-11:46:34.993 3ee8 Archiving C:\Users\abdul\AppData\Local\Temp\flutter_tools.e2cef4b5\flutter_tools_chrome_device.300b8f44\Default\Extension Scripts/000003.log: OK
+2022/12/15-11:46:34.994 3ee8 Archiving C:\Users\abdul\AppData\Local\Temp\flutter_tools.e2cef4b5\flutter_tools_chrome_device.300b8f44\Default\Extension Scripts/MANIFEST-000001: OK
+2022/12/15-11:46:35.001 3ee8 **** Repaired leveldb C:\Users\abdul\AppData\Local\Temp\flutter_tools.e2cef4b5\flutter_tools_chrome_device.300b8f44\Default\Extension Scripts; recovered 0 files; 0 bytes. Some data may have been lost. ****

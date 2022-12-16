@@ -3,11 +3,13 @@ file:///C:/Users/abdul/Documents/GitHub/pan-oceanic-sfe/.dart_tool/flutter_build
 file:///C:/Users/abdul/Documents/GitHub/pan-oceanic-sfe/.dart_tool/package_config.json
 file:///C:/Users/abdul/Documents/GitHub/pan-oceanic-sfe/lib/Admin/home_page.dart
 file:///C:/Users/abdul/Documents/GitHub/pan-oceanic-sfe/lib/Auth/auth.dart
+file:///C:/Users/abdul/Documents/GitHub/pan-oceanic-sfe/lib/Customs/custom_alert.dart
 file:///C:/Users/abdul/Documents/GitHub/pan-oceanic-sfe/lib/Customs/custom_drawer.dart
 file:///C:/Users/abdul/Documents/GitHub/pan-oceanic-sfe/lib/Customs/custom_loader.dart
 file:///C:/Users/abdul/Documents/GitHub/pan-oceanic-sfe/lib/Customs/custom_snackbar.dart
 file:///C:/Users/abdul/Documents/GitHub/pan-oceanic-sfe/lib/Providers/auth_provider.dart
 file:///C:/Users/abdul/Documents/GitHub/pan-oceanic-sfe/lib/Providers/firestore_provider.dart
+file:///C:/Users/abdul/Documents/GitHub/pan-oceanic-sfe/lib/Providers/storage_provider.dart
 file:///C:/Users/abdul/Documents/GitHub/pan-oceanic-sfe/lib/Widgets/TextField%20Widgets/auth_widgets.dart
 file:///C:/Users/abdul/Documents/GitHub/pan-oceanic-sfe/lib/main.dart
 file:///C:/src/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/_flutterfire_internals-1.0.10/lib/_flutterfire_internals.dart
@@ -328,6 +330,13 @@ file:///C:/src/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core_
 file:///C:/src/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core_web-2.0.2/lib/src/interop/utils/js.dart
 file:///C:/src/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core_web-2.0.2/lib/src/interop/utils/js_interop.dart
 file:///C:/src/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core_web-2.0.2/lib/src/interop/utils/utils.dart
+file:///C:/src/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_storage-11.0.7/lib/firebase_storage.dart
+file:///C:/src/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_storage-11.0.7/lib/src/firebase_storage.dart
+file:///C:/src/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_storage-11.0.7/lib/src/list_result.dart
+file:///C:/src/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_storage-11.0.7/lib/src/reference.dart
+file:///C:/src/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_storage-11.0.7/lib/src/task.dart
+file:///C:/src/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_storage-11.0.7/lib/src/task_snapshot.dart
+file:///C:/src/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_storage-11.0.7/lib/src/utils.dart
 file:///C:/src/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_storage_platform_interface-4.1.25/lib/firebase_storage_platform_interface.dart
 file:///C:/src/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_storage_platform_interface-4.1.25/lib/src/full_metadata.dart
 file:///C:/src/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_storage_platform_interface-4.1.25/lib/src/internal/pointer.dart

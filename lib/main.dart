@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'Admin/home_page.dart';
 import 'Auth/auth.dart';
 import 'Providers/auth_provider.dart';
+import 'Providers/storage_provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,6 +30,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider<FirestoreProvider>(
           create: (_) => FirestoreProvider(),
+        ),
+        ChangeNotifierProvider<StorageProvider>(
+          create: (_) => StorageProvider(),
         ),
       ],
       child: MaterialApp(
