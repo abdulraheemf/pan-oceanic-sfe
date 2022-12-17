@@ -12,5 +12,7 @@ class MyConstants {
   static const mainHomePageCardColor = Color(0xFF748CF1);
   static const badHomePageCardColor = Color(0xFFFD9999);
   static const goodCardHomePageCardColor = Color(0xFF6DE2D9);
+  static const homePageProgressBarBackgroundColor = Color(0xFFDEFBF7);
+  static const homePageProgressBarColor = Color(0xFF58ECD9);
 
 }

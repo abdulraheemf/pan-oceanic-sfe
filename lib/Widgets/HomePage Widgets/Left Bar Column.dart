@@ -20,9 +20,7 @@ class _HomePageLeftColumnEntryState extends State<HomePageLeftColumnEntry> {
     height = MediaQuery.of(context).size.height;
     width = MediaQuery.of(context).size.width;
     return GestureDetector(
-      onTap: (){
-        widget.onTap;
-      },
+      onTap: widget.onTap,
       child: Container(
         height: height*0.07,
         decoration: BoxDecoration(

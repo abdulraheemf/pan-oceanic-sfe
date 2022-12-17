@@ -7,12 +7,37 @@ class FirestoreProvider with ChangeNotifier {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final usersCollection = FirebaseFirestore.instance.collection('users');
   final goalsCollection = FirebaseFirestore.instance.collection('goals');
+  final currentInformationCollection = FirebaseFirestore.instance.collection('counters');
+  final announcementCollection = FirebaseFirestore.instance.collection('announcements');
 
   Stream<DocumentSnapshot<Map<String, dynamic>>> getCurrentUserStream(){
     Stream<DocumentSnapshot<Map<String, dynamic>>> stream = FirebaseFirestore.instance.collection('users').doc(_auth.currentUser!.uid).snapshots();
     return stream;
   }
-
+  Stream<DocumentSnapshot<Map<String, dynamic>>> getCurrentNumberOfSFEStream(){
+    Stream<DocumentSnapshot<Map<String, dynamic>>> stream = currentInformationCollection.doc('SFE').snapshots();
+    return stream;
+  }
+  Stream<DocumentSnapshot<Map<String, dynamic>>> getCurrentNumberOfInvoicesStream(){
+    Stream<DocumentSnapshot<Map<String, dynamic>>> stream = currentInformationCollection.doc('numberOfInvoices').snapshots();
+    return stream;
+  }
+  Stream<DocumentSnapshot<Map<String, dynamic>>> getCurrentInsuranceNotCompletedStream(){
+    Stream<DocumentSnapshot<Map<String, dynamic>>> stream = currentInformationCollection.doc('insuranceNotCompleted').snapshots();
+    return stream;
+  }
+  Stream<DocumentSnapshot<Map<String, dynamic>>> getCurrentNumberOfNewClientsStream(){
+    Stream<DocumentSnapshot<Map<String, dynamic>>> stream = currentInformationCollection.doc('newClients').snapshots();
+    return stream;
+  }
+  Stream<DocumentSnapshot<Map<String, dynamic>>> getCurrentInsuranceCompletedStream(){
+    Stream<DocumentSnapshot<Map<String, dynamic>>> stream = currentInformationCollection.doc('insuranceCompleted').snapshots();
+    return stream;
+  }
+  Stream<QuerySnapshot> getLatestAnnouncementsStream(){
+    Stream<QuerySnapshot> stream = announcementCollection.where('isDeleted',isEqualTo: false).orderBy('timestamp',descending: true).limit(10).snapshots();
+    return stream;
+  }
 
   Future<String> getCurrentUserName() async {
     Map<String, dynamic>? data;
@@ -66,6 +91,15 @@ class FirestoreProvider with ChangeNotifier {
         .get()
         .then((doc) => {data = doc.data()});
     return data!['number'];
+  }
+
+  Future<bool> checkIfUserIsAdmin() async {
+    Map<String, dynamic>? data;
+    await usersCollection!
+        .doc(_auth.currentUser!.uid)
+        .get()
+        .then((doc) => {data = doc.data()});
+    return data!['isAdmin'];
   }
 
 }

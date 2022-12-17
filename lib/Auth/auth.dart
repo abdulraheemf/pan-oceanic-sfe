@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:pan_oceanic_sfe/Customs/custom_snackbar.dart';
+import 'package:pan_oceanic_sfe/Providers/firestore_provider.dart';
 import 'package:pan_oceanic_sfe/Services/constants.dart';
+import 'package:pan_oceanic_sfe/Staff/Home%20Page.dart';
 import 'package:pan_oceanic_sfe/Widgets/TextField%20Widgets/auth_widgets.dart';
 import 'package:provider/provider.dart';
 
@@ -19,13 +21,15 @@ class Authentication extends StatefulWidget {
 class _AuthenticationState extends State<Authentication> {
   late double height;
   late double width;
-  late final dynamic provider;
   late TextEditingController email;
   late TextEditingController password;
+  late final dynamic firestoreProvider;
+  late final dynamic authProvider;
   @override
   void initState(){
     super.initState();
-    provider = Provider.of<AuthProvider>(context, listen: false);
+    authProvider = Provider.of<AuthProvider>(context, listen: false);
+    firestoreProvider = Provider.of<FirestoreProvider>(context, listen: false);
     email = TextEditingController();
     password = TextEditingController();
   }
@@ -41,6 +45,18 @@ class _AuthenticationState extends State<Authentication> {
       return FadeTransition(
         opacity: animation,
         child: const AdminHomePage(),
+      );
+    },
+      transitionDuration: const Duration(milliseconds: 180),
+    ),
+    );
+  }
+  void goToStaffHomePage(){
+    Navigator.pop(context);
+    Navigator.pushReplacement(context, PageRouteBuilder(pageBuilder: (context, animation, secondaryAnimation) {
+      return FadeTransition(
+        opacity: animation,
+        child: const StaffHomePage(),
       );
     },
       transitionDuration: const Duration(milliseconds: 180),
@@ -85,12 +101,17 @@ class _AuthenticationState extends State<Authentication> {
                       alignment: Alignment.bottomRight,
                       child: GestureDetector(
                         onTap: () async {
+                          late bool isAdmin;
                           LoaderDialog.showLoaderDialog(context);
                           try {
-                            await Provider.of<AuthProvider>(
-                                context, listen: false).firebaseLogin(
+                            await authProvider.firebaseLogin(
                                 email.text.trim(), password.text);
-                            goToAdminHomePage();
+                            isAdmin = await firestoreProvider.checkIfUserIsAdmin();
+                            if(isAdmin){
+                              goToAdminHomePage();
+                            } else {
+                              goToStaffHomePage();
+                            }
                           } catch (e) {
                             Navigator.pop(context);
                             ScaffoldMessenger.of(context).showSnackBar(
@@ -152,12 +173,17 @@ class _AuthenticationState extends State<Authentication> {
                             alignment: Alignment.bottomRight,
                             child: GestureDetector(
                               onTap: () async {
+                                late bool isAdmin;
                                 LoaderDialog.showLoaderDialog(context);
                                 try {
-                                  await Provider.of<AuthProvider>(
-                                      context, listen: false).firebaseLogin(
+                                  await authProvider.firebaseLogin(
                                       email.text.trim(), password.text);
-                                  goToAdminHomePage();
+                                  isAdmin = await firestoreProvider.checkIfUserIsAdmin();
+                                  if(isAdmin){
+                                    goToAdminHomePage();
+                                  } else {
+                                    goToStaffHomePage();
+                                  }
                                 } catch (e) {
                                   Navigator.pop(context);
                                   ScaffoldMessenger.of(context).showSnackBar(

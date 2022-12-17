@@ -3,6 +3,7 @@ file:///C:/Users/abdul/Documents/GitHub/pan-oceanic-sfe/.dart_tool/flutter_build
 file:///C:/Users/abdul/Documents/GitHub/pan-oceanic-sfe/.dart_tool/package_config.json
 file:///C:/Users/abdul/Documents/GitHub/pan-oceanic-sfe/lib/Admin/home_page.dart
 file:///C:/Users/abdul/Documents/GitHub/pan-oceanic-sfe/lib/Auth/auth.dart
+file:///C:/Users/abdul/Documents/GitHub/pan-oceanic-sfe/lib/Customs/custom_alert.dart
 file:///C:/Users/abdul/Documents/GitHub/pan-oceanic-sfe/lib/Customs/custom_loader.dart
 file:///C:/Users/abdul/Documents/GitHub/pan-oceanic-sfe/lib/Customs/custom_snackbar.dart
 file:///C:/Users/abdul/Documents/GitHub/pan-oceanic-sfe/lib/Providers/auth_provider.dart
@@ -10,8 +11,11 @@ file:///C:/Users/abdul/Documents/GitHub/pan-oceanic-sfe/lib/Providers/firestore_
 file:///C:/Users/abdul/Documents/GitHub/pan-oceanic-sfe/lib/Providers/storage_provider.dart
 file:///C:/Users/abdul/Documents/GitHub/pan-oceanic-sfe/lib/Services/Number%20Altering%20Functions.dart
 file:///C:/Users/abdul/Documents/GitHub/pan-oceanic-sfe/lib/Services/constants.dart
+file:///C:/Users/abdul/Documents/GitHub/pan-oceanic-sfe/lib/Staff/Home%20Page.dart
+file:///C:/Users/abdul/Documents/GitHub/pan-oceanic-sfe/lib/Widgets/HomePage%20Widgets/Announcements.dart
 file:///C:/Users/abdul/Documents/GitHub/pan-oceanic-sfe/lib/Widgets/HomePage%20Widgets/Future%20Builders.dart
 file:///C:/Users/abdul/Documents/GitHub/pan-oceanic-sfe/lib/Widgets/HomePage%20Widgets/Home%20Page%20Cards.dart
+file:///C:/Users/abdul/Documents/GitHub/pan-oceanic-sfe/lib/Widgets/HomePage%20Widgets/Home%20Page%20Quick%20Link.dart
 file:///C:/Users/abdul/Documents/GitHub/pan-oceanic-sfe/lib/Widgets/HomePage%20Widgets/Left%20Bar%20Column.dart
 file:///C:/Users/abdul/Documents/GitHub/pan-oceanic-sfe/lib/Widgets/TextField%20Widgets/auth_widgets.dart
 file:///C:/Users/abdul/Documents/GitHub/pan-oceanic-sfe/lib/main.dart

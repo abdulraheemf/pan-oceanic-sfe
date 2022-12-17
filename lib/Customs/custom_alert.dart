@@ -27,7 +27,7 @@ class ShowDialog{
                     child: Text(title,style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Colors.black,
-                        fontSize: 15,
+                        fontSize: 20,
                         decoration: TextDecoration.none
                     ),
                       textAlign: TextAlign.center,),
@@ -39,6 +39,7 @@ class ShowDialog{
                       style: const TextStyle(
                           fontWeight: FontWeight.w400,
                           color: Colors.black,
+                          fontSize: 17,
                           decoration: TextDecoration.none
                       ),),
                   ),
@@ -61,6 +62,7 @@ class ShowDialog{
                           child: Center(
                             child: Text(left,style: const TextStyle(
                                 color: Colors.white,
+                                fontSize: 17,
                                 decoration: TextDecoration.none
                             ),),
                           ),
@@ -83,6 +85,7 @@ class ShowDialog{
                           child: Center(
                             child: Text(right,style: const TextStyle(
                                 color: Colors.white,
+                                fontSize: 17,
                                 decoration: TextDecoration.none
                             ),),
                           ),

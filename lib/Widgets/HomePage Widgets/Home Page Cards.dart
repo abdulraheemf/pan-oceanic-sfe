@@ -1,20 +1,21 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:pan_oceanic_sfe/Services/Number%20Altering%20Functions.dart';
 import 'package:pan_oceanic_sfe/Services/constants.dart';
 
 class HomePageCards extends StatefulWidget {
-  //Stream numberStream;
+  Stream<DocumentSnapshot<Map<String, dynamic>>> stream;
   String description;
   Future goals;
   int typeOfCard;
   bool isBig;
-  HomePageCards({required this.description,this.typeOfCard = 1,this.isBig = false,required this.goals,});
+  HomePageCards({required this.description,this.typeOfCard = 1,this.isBig = false,required this.goals,required this.stream,});
   //type of card
   //1 is white
   //2 is blue / good
   //3 is red / bad
-//required this.numberStream,
+
   @override
   State<HomePageCards> createState() => _HomePageCardsState();
 }
@@ -44,6 +45,18 @@ class _HomePageCardsState extends State<HomePageCards> {
       return Colors.black;
     }
   }
+  String getPercentage(double goalValue, double currentValue) {
+    return ((currentValue/goalValue) * 100).toStringAsFixed(1);
+  }
+
+  double getNumberForProgressBar(double goalValue,double currentValue){
+    double ratio  = currentValue/goalValue;
+    if(ratio>=1){
+      return 1;
+    } else {
+      return ratio;
+    }
+  }
   @override
   Widget build(BuildContext context) {
     height = MediaQuery.of(context).size.height;
@@ -63,9 +76,66 @@ class _HomePageCardsState extends State<HomePageCards> {
                 color: getTextColor(),
               ),);
             } else if(!snapshot.hasData){
-              return Center(child: Text('An Error Occured, Please Reload!',style: TextStyle(color: getTextColor()),textAlign: TextAlign.center,));
+              return Center(child: Text('An Error Occurred, Please Reload!',style: TextStyle(color: getTextColor()),textAlign: TextAlign.center,));
             }else{
-              return Center(child: Text(NumberFunctions().addCommas(snapshot.data),style: TextStyle(color: getTextColor()),));
+              return StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
+               stream: widget.stream,
+                builder: (_, snapshotStream) {
+                  if (snapshotStream.connectionState ==
+                      ConnectionState.waiting) {
+                    return Center(child: SpinKitCircle(
+                      color: getTextColor(),
+                    ),);
+                  } else if (!snapshotStream.hasData) {
+                    return Center(child: Text(
+                      'An Error Occurred, Please Reload!',
+                      style: TextStyle(color: getTextColor()),
+                      textAlign: TextAlign.center,));
+                  } else {
+                    var outputStream = snapshotStream.data!.data();
+                    double currentNumberValue = outputStream!['valueMonthly'];
+                    String percentage = getPercentage(snapshot.data, currentNumberValue);
+                    double barValue = getNumberForProgressBar(snapshot.data, currentNumberValue);
+                    return Padding(
+                      padding: EdgeInsets.only(
+                          left: width * 0.005, right: width * 0.005),
+                      child: Column(
+                        children: [
+                          SizedBox(height: height * 0.02,),
+                          Align(alignment: Alignment.centerLeft,
+                              child: Text(NumberFunctions().addCommas(currentNumberValue),
+                                style: TextStyle(
+                                    color: getTextColor(), fontSize: 25),
+                                maxLines: 2,
+                                textAlign: TextAlign.left,
+                                overflow: TextOverflow.ellipsis,)),
+                          Align(alignment: Alignment.centerLeft,
+                              child: Text(widget.description,
+                                style: TextStyle(color: getTextColor()),
+                                maxLines: 3,
+                                overflow: TextOverflow.ellipsis,
+                                textAlign: TextAlign.left,)),
+                          const Spacer(),
+                          Align(alignment: Alignment.centerLeft,
+                              child: Text('Progress: $percentage%', style: TextStyle(
+                                  color: getTextColor(), fontSize: 13),
+                                maxLines: 1,
+                                textAlign: TextAlign.left,
+                                overflow: TextOverflow.ellipsis,)),
+                          SizedBox(height: height * 0.005,),
+                          LinearProgressIndicator(
+                            value: barValue,
+                            backgroundColor: MyConstants.homePageProgressBarBackgroundColor,
+                            valueColor: const AlwaysStoppedAnimation<Color>(MyConstants.homePageProgressBarColor),
+                            minHeight: height * 0.007,
+                          ),
+                          SizedBox(height: height * 0.02,),
+                        ],
+                      ),
+                    );
+                  }
+                }
+              );
             }
           }
       ),

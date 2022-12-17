@@ -1,12 +1,18 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:lottie/lottie.dart';
+import 'package:pan_oceanic_sfe/Auth/auth.dart';
+import 'package:pan_oceanic_sfe/Customs/custom_alert.dart';
+import 'package:pan_oceanic_sfe/Providers/auth_provider.dart';
 import 'package:pan_oceanic_sfe/Services/constants.dart';
 import 'package:pan_oceanic_sfe/Widgets/HomePage%20Widgets/Future%20Builders.dart';
 import 'package:provider/provider.dart';
 import '../Providers/firestore_provider.dart';
 import '../Providers/storage_provider.dart';
+import '../Widgets/HomePage Widgets/Announcements.dart';
 import '../Widgets/HomePage Widgets/Home Page Cards.dart';
+import '../Widgets/HomePage Widgets/Home Page Quick Link.dart';
 import '../Widgets/HomePage Widgets/Left Bar Column.dart';
 
 class AdminHomePage extends StatefulWidget {
@@ -20,6 +26,7 @@ class _AdminHomePageState extends State<AdminHomePage> {
   late double height;
   late double width;
   late final dynamic firestoreProvider;
+  late final dynamic authProvider;
   late final Future<String> getCurrentUsernameFuture;
   late final Future getSFEGoalFuture;
   late final Future getInsuranceCompletedGoalFuture;
@@ -28,10 +35,17 @@ class _AdminHomePageState extends State<AdminHomePage> {
   late final Future getNewClientsGoalFuture;
   late final dynamic storageProvider;
   late final Future<String>getProfilePictureFuture;
+  late Stream<DocumentSnapshot<Map<String, dynamic>>> getCurrentSFEStream;
+  late Stream<DocumentSnapshot<Map<String, dynamic>>> getCurrentInsuranceCompletedStream;
+  late Stream<DocumentSnapshot<Map<String, dynamic>>> getCurrentInsuranceNotCompletedStream;
+  late Stream<DocumentSnapshot<Map<String, dynamic>>> getNewClientStream;
+  late Stream<DocumentSnapshot<Map<String, dynamic>>> getCurrentNumberOfInvoicesStream;
+  late Stream<QuerySnapshot> getLatestAnnouncementsStream;
   @override
   void initState(){
     super.initState();
     firestoreProvider = Provider.of<FirestoreProvider>(context, listen: false);
+    authProvider = Provider.of<AuthProvider>(context, listen: false);
     getCurrentUsernameFuture = firestoreProvider.getCurrentUserName();
     storageProvider = Provider.of<StorageProvider>(context, listen: false);
     getProfilePictureFuture = storageProvider.getProfilePicture();
@@ -40,8 +54,12 @@ class _AdminHomePageState extends State<AdminHomePage> {
     getInsuranceNotCompletedGoalFuture = firestoreProvider.getInsuranceNotCompletedGoal();
     getNewClientsGoalFuture = firestoreProvider.getNewClientsGoals();
     getNumberOfInvoicesGoalFuture = firestoreProvider.getNumberOfInvoices();
-
-
+    getCurrentSFEStream = firestoreProvider.getCurrentNumberOfSFEStream();
+    getCurrentInsuranceCompletedStream = firestoreProvider.getCurrentInsuranceCompletedStream();
+    getCurrentInsuranceNotCompletedStream = firestoreProvider.getCurrentInsuranceNotCompletedStream();
+    getNewClientStream = firestoreProvider.getCurrentNumberOfNewClientsStream();
+    getCurrentNumberOfInvoicesStream = firestoreProvider.getCurrentNumberOfInvoicesStream();
+    getLatestAnnouncementsStream = firestoreProvider.getLatestAnnouncementsStream();
   }
 
   @override
@@ -87,6 +105,21 @@ class _AdminHomePageState extends State<AdminHomePage> {
                   HomePageLeftColumnEntry(icon: Icons.receipt, description: 'Invoices', isHome: false,onTap: (){},),
                   SizedBox(height: height*0.01,),
                   HomePageLeftColumnEntry(icon: Icons.settings, description: 'Settings', isHome: false,onTap: (){},),
+                  SizedBox(height: height*0.01,),
+                  HomePageLeftColumnEntry(icon: Icons.logout, description: 'Sign Out', isHome: false,onTap: (){
+                    ShowDialog.showErrorDialog(context, 'ARE YOU SURE?', 'Are you sure you wish to sign out?', 'images/lotties/log-out.json', 'Cancel', Colors.red, 'Confirm', Colors.green, () {
+                      authProvider.signOut();
+                      Navigator.pushReplacement(context, PageRouteBuilder(pageBuilder: (context, animation, secondaryAnimation) {
+                        return FadeTransition(
+                          opacity: animation,
+                          child: const Authentication(),
+                        );
+                      },
+                        transitionDuration: const Duration(milliseconds: 180),
+                      ),
+                      );
+                    }, height, width);
+                  },),
                 ],
               ),
             ),
@@ -116,13 +149,13 @@ class _AdminHomePageState extends State<AdminHomePage> {
                             SizedBox(height: height*0.01,),
                             Row(
                               children: [
-                                HomePageCards( description: 'Number of SFEs',typeOfCard: 2,goals: getSFEGoalFuture),
+                                HomePageCards( description: 'Number of SFEs',typeOfCard: 2,goals: getSFEGoalFuture,stream: getCurrentSFEStream,),
                                 SizedBox(width: width*0.01,),
-                                HomePageCards( description: 'Number of Invoices',goals: getNumberOfInvoicesGoalFuture,),
+                                HomePageCards( description: 'Number of Invoices This Month',goals: getNumberOfInvoicesGoalFuture,stream: getCurrentNumberOfInvoicesStream,),
                                 SizedBox(width: width*0.01,),
-                                HomePageCards( description: 'Insurance Not Completed',goals: getInsuranceNotCompletedGoalFuture,),
+                                HomePageCards( description: 'Insurance Not Completed This Month',goals: getInsuranceNotCompletedGoalFuture,stream: getCurrentInsuranceNotCompletedStream,),
                                 SizedBox(width: width*0.01,),
-                                HomePageCards( description: 'New Clients',typeOfCard: 3,goals: getNewClientsGoalFuture,),
+                                HomePageCards( description: 'New Clients This Month',typeOfCard: 3,goals: getNewClientsGoalFuture,stream: getNewClientStream,),
                                 SizedBox(width: width*0.01,),
                               ],
                             ),
@@ -137,11 +170,39 @@ class _AdminHomePageState extends State<AdminHomePage> {
                           SizedBox(height: height*0.01,),
                           Row(
                             children: [
-                              HomePageCards( description: 'Insurance Completed this month',typeOfCard: 5,isBig: true,goals: getInsuranceCompletedGoalFuture,),
+                              HomePageCards( description: 'Insurance Completed this month',typeOfCard: 5,isBig: true,goals: getInsuranceCompletedGoalFuture,stream: getCurrentInsuranceCompletedStream,),
                             ],
                           ),
                         ],
                       ),
+                    ],
+                  ),
+                  SizedBox(height: height*0.03,),
+                  Row(
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Quick Links',style: TextStyle(color: Colors.black.withOpacity(0.5)),),
+                          SizedBox(height: height*0.01,),
+                          HomePageQuickLink(description: 'Create New Account', icon: Icons.add, onTap: () {  },),
+                          SizedBox(height: height*0.02,),
+                          HomePageQuickLink(description: 'View Company Performance', icon: Icons.show_chart, onTap: () {  },),
+                          SizedBox(height: height*0.02,),
+                          HomePageQuickLink(description: 'Check Current SFEs', icon: Icons.people, onTap: () {  },),
+                        ],
+                      ),
+                      SizedBox(width: width*0.03,),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Announcements',style: TextStyle(color: Colors.black.withOpacity(0.5)),),
+                            SizedBox(height: height*0.01,),
+                            Announcements(stream: getLatestAnnouncementsStream,),
+                          ],
+                        ),
+                      )
                     ],
                   )
 
