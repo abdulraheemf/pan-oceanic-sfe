@@ -9,6 +9,17 @@ class FirestoreProvider with ChangeNotifier {
   final goalsCollection = FirebaseFirestore.instance.collection('goals');
   final currentInformationCollection = FirebaseFirestore.instance.collection('counters');
   final announcementCollection = FirebaseFirestore.instance.collection('announcements');
+  String currentChosenNews = 'placeholder';
+
+  void UpdateCurrentChosenNews(String input){
+    currentChosenNews = input;
+    notifyListeners();
+  }
+
+  Stream<DocumentSnapshot<Map<String, dynamic>>> getSpecificNewsStream(){
+    Stream<DocumentSnapshot<Map<String, dynamic>>> stream = announcementCollection.doc(currentChosenNews).snapshots();
+    return stream;
+  }
 
   Stream<DocumentSnapshot<Map<String, dynamic>>> getCurrentUserStream(){
     Stream<DocumentSnapshot<Map<String, dynamic>>> stream = FirebaseFirestore.instance.collection('users').doc(_auth.currentUser!.uid).snapshots();
@@ -34,8 +45,8 @@ class FirestoreProvider with ChangeNotifier {
     Stream<DocumentSnapshot<Map<String, dynamic>>> stream = currentInformationCollection.doc('insuranceCompleted').snapshots();
     return stream;
   }
-  Stream<QuerySnapshot> getLatestAnnouncementsStream(){
-    Stream<QuerySnapshot> stream = announcementCollection.where('isDeleted',isEqualTo: false).orderBy('timestamp',descending: true).limit(10).snapshots();
+  Stream<QuerySnapshot> getLatestAnnouncementsStream(int limit){
+    Stream<QuerySnapshot> stream = announcementCollection.where('isDeleted',isEqualTo: false).orderBy('timestamp',descending: true).limit(limit).snapshots();
     return stream;
   }
 

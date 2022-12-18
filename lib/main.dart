@@ -2,7 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pan_oceanic_sfe/Admin/announcements_page.dart';
 import 'package:pan_oceanic_sfe/Providers/firestore_provider.dart';
+import 'package:pan_oceanic_sfe/Services/constants.dart';
 import 'package:provider/provider.dart';
 import 'Admin/home_page.dart';
 import 'Auth/auth.dart';
@@ -38,16 +40,17 @@ class MyApp extends StatelessWidget {
         title: 'Pan Oceanic SFE',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          scaffoldBackgroundColor: Color(0xFFE4E4E4),
+          scaffoldBackgroundColor: MyConstants.scaffoldBackgroundColor,
           textTheme: GoogleFonts.latoTextTheme(),
-          appBarTheme: AppBarTheme(
+          appBarTheme: const AppBarTheme(
             centerTitle: true,
-            backgroundColor: const Color(0xFFe4e4e4),
+            backgroundColor: MyConstants.scaffoldBackgroundColor,
             elevation: 0,
-            iconTheme: const IconThemeData(color: Colors.black),
-          )
+            iconTheme: IconThemeData(color: Colors.black),
+          ),
         ),
-        home: (FirebaseAuth.instance.currentUser==null)?Authentication():AdminHomePage(),
+       home: (FirebaseAuth.instance.currentUser==null)?Authentication():AdminHomePage(),
+      // home: AdminAnnouncements(),
       ),
     );
   }

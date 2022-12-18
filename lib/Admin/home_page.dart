@@ -2,6 +2,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:lottie/lottie.dart';
+import 'package:pan_oceanic_sfe/Admin/SFEs_page.dart';
+import 'package:pan_oceanic_sfe/Admin/announcements_page.dart';
+import 'package:pan_oceanic_sfe/Admin/goals_page.dart';
+import 'package:pan_oceanic_sfe/Admin/invoices_page.dart';
+import 'package:pan_oceanic_sfe/Admin/myAccount_page.dart';
+import 'package:pan_oceanic_sfe/Admin/progress_page.dart';
+import 'package:pan_oceanic_sfe/Admin/settings_page.dart';
 import 'package:pan_oceanic_sfe/Auth/auth.dart';
 import 'package:pan_oceanic_sfe/Customs/custom_alert.dart';
 import 'package:pan_oceanic_sfe/Providers/auth_provider.dart';
@@ -59,7 +66,7 @@ class _AdminHomePageState extends State<AdminHomePage> {
     getCurrentInsuranceNotCompletedStream = firestoreProvider.getCurrentInsuranceNotCompletedStream();
     getNewClientStream = firestoreProvider.getCurrentNumberOfNewClientsStream();
     getCurrentNumberOfInvoicesStream = firestoreProvider.getCurrentNumberOfInvoicesStream();
-    getLatestAnnouncementsStream = firestoreProvider.getLatestAnnouncementsStream();
+    getLatestAnnouncementsStream = firestoreProvider.getLatestAnnouncementsStream(5);
   }
 
   @override
@@ -92,19 +99,89 @@ class _AdminHomePageState extends State<AdminHomePage> {
                   SizedBox(height: height*0.03,),
                   HomePageLeftColumnEntry(icon: Icons.home, description: 'Home', isHome: true,onTap: (){},),
                   SizedBox(height: height*0.01,),
-                  HomePageLeftColumnEntry(icon: Icons.announcement, description: 'Announcements', isHome: false,onTap: (){},),
+                  HomePageLeftColumnEntry(icon: Icons.announcement, description: 'Announcements', isHome: false,onTap: (){
+                    Navigator.push(context, PageRouteBuilder(pageBuilder: (context, animation, secondaryAnimation) {
+                      return FadeTransition(
+                        opacity: animation,
+                        child: const AdminAnnouncements(),
+                      );
+                    },
+                      transitionDuration: const Duration(milliseconds: 180),
+                    ),
+                    );
+                  },),
                   SizedBox(height: height*0.01,),
-                  HomePageLeftColumnEntry(icon: Icons.bar_chart, description: 'Progress', isHome: false,onTap: (){},),
+                  HomePageLeftColumnEntry(icon: Icons.bar_chart, description: 'Progress', isHome: false,onTap: (){
+                    Navigator.push(context, PageRouteBuilder(pageBuilder: (context, animation, secondaryAnimation) {
+                      return FadeTransition(
+                        opacity: animation,
+                        child: const AdminProgressPage(),
+                      );
+                    },
+                      transitionDuration: const Duration(milliseconds: 180),
+                    ),
+                    );
+                  },),
                   SizedBox(height: height*0.01,),
-                  HomePageLeftColumnEntry(icon: Icons.show_chart, description: 'Goals', isHome: false,onTap: (){},),
+                  HomePageLeftColumnEntry(icon: Icons.show_chart, description: 'Goals', isHome: false,onTap: (){
+                    Navigator.push(context, PageRouteBuilder(pageBuilder: (context, animation, secondaryAnimation) {
+                      return FadeTransition(
+                        opacity: animation,
+                        child: const AdminGoalsPage(),
+                      );
+                    },
+                      transitionDuration: const Duration(milliseconds: 180),
+                    ),
+                    );
+                  },),
                   SizedBox(height: height*0.01,),
-                  HomePageLeftColumnEntry(icon: Icons.person, description: 'My Account', isHome: false,onTap: (){},),
+                  HomePageLeftColumnEntry(icon: Icons.person, description: 'My Account', isHome: false,onTap: (){
+                    Navigator.push(context, PageRouteBuilder(pageBuilder: (context, animation, secondaryAnimation) {
+                      return FadeTransition(
+                        opacity: animation,
+                        child: const AdminMyAccount(),
+                      );
+                    },
+                      transitionDuration: const Duration(milliseconds: 180),
+                    ),
+                    );
+                  },),
                   SizedBox(height: height*0.01,),
-                  HomePageLeftColumnEntry(icon: Icons.people, description: 'SFEs', isHome: false,onTap: (){},),
+                  HomePageLeftColumnEntry(icon: Icons.people, description: 'SFEs', isHome: false,onTap: (){
+                    Navigator.push(context, PageRouteBuilder(pageBuilder: (context, animation, secondaryAnimation) {
+                      return FadeTransition(
+                        opacity: animation,
+                        child: const AdminSFEsPage(),
+                      );
+                    },
+                      transitionDuration: const Duration(milliseconds: 180),
+                    ),
+                    );
+                  },),
                   SizedBox(height: height*0.01,),
-                  HomePageLeftColumnEntry(icon: Icons.receipt, description: 'Invoices', isHome: false,onTap: (){},),
+                  HomePageLeftColumnEntry(icon: Icons.receipt, description: 'Invoices', isHome: false,onTap: (){
+                    Navigator.push(context, PageRouteBuilder(pageBuilder: (context, animation, secondaryAnimation) {
+                      return FadeTransition(
+                        opacity: animation,
+                        child: const AdminInvoicesPage(),
+                      );
+                    },
+                      transitionDuration: const Duration(milliseconds: 180),
+                    ),
+                    );
+                  },),
                   SizedBox(height: height*0.01,),
-                  HomePageLeftColumnEntry(icon: Icons.settings, description: 'Settings', isHome: false,onTap: (){},),
+                  HomePageLeftColumnEntry(icon: Icons.settings, description: 'Settings', isHome: false,onTap: (){
+                    Navigator.push(context, PageRouteBuilder(pageBuilder: (context, animation, secondaryAnimation) {
+                      return FadeTransition(
+                        opacity: animation,
+                        child: const AdminSettingsPage(),
+                      );
+                    },
+                      transitionDuration: const Duration(milliseconds: 180),
+                    ),
+                    );
+                  },),
                   SizedBox(height: height*0.01,),
                   HomePageLeftColumnEntry(icon: Icons.logout, description: 'Sign Out', isHome: false,onTap: (){
                     ShowDialog.showErrorDialog(context, 'ARE YOU SURE?', 'Are you sure you wish to sign out?', 'images/lotties/log-out.json', 'Cancel', Colors.red, 'Confirm', Colors.green, () {
