@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -13,6 +15,14 @@ class Announcements extends StatefulWidget {
 class _AnnouncementsState extends State<Announcements> {
   late double height;
   late double width;
+  List<Color> profileColors = [
+    Colors.red,
+    Colors.green,
+    Colors.purple,
+    Colors.blue,
+    Colors.black,
+    Colors.orange
+  ];
   @override
   Widget build(BuildContext context) {
     height = MediaQuery.of(context).size.height;
@@ -40,25 +50,75 @@ class _AnnouncementsState extends State<Announcements> {
                   itemCount: snapshot.data?.docs.length ?? 0,
                   separatorBuilder: (BuildContext context, int index) =>
                       Padding(
-                        padding: EdgeInsets.only(left: width*0.005,right: width*0.005),
+                        padding: EdgeInsets.only(
+                            left: width * 0.005, right: width * 0.005),
                         child: Container(
                           color: Colors.black.withOpacity(0.5),
-                          height: 0.3,
+                          height: 0.25,
                           width: width * 0.5,
                         ),
                       ),
                   physics: const BouncingScrollPhysics(),
                   itemBuilder: (BuildContext context, int index) {
                     var data = snapshot.data!.docs[index].data()
-                        as Map<String, dynamic>;
+                    as Map<String, dynamic>;
+                    String publisherFirstName = data['byFirstName'];
+                    String publisherLastName = data['byLastName'];
                     return Padding(
-                      padding: EdgeInsets.fromLTRB(width*0.005, height*0.005, width*0.005,  height*0.005),
+                      padding: EdgeInsets.fromLTRB(width * 0.018,
+                          height * 0.03, width * 0.018, height * 0.03),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(data['title'],style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),maxLines: 1,overflow: TextOverflow.ellipsis,),
-                          Text(data['body'],maxLines: 3,overflow: TextOverflow.ellipsis,)
-
+                          Row(
+                            children: [
+                              CircleAvatar(
+                                backgroundColor: profileColors[
+                                Random().nextInt(profileColors.length)],
+                                child: Text(
+                                  '${publisherFirstName[0]}${publisherLastName[0]}',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ),
+                              SizedBox(
+                                width: width * 0.003,
+                              ),
+                              Expanded(
+                                child: Column(
+                                  children: [
+                                    Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                          data['title'],
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold),
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                        )),
+                                    Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                          '$publisherFirstName $publisherLastName',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.grey,
+                                              fontSize: 12),
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                        )),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: height * 0.005,
+                          ),
+                          Text(
+                            data['body'],
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                          )
                         ],
                       ),
                     );

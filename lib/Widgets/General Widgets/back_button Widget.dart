@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:pan_oceanic_sfe/Services/constants.dart';
 
-class CustomBackButton extends StatelessWidget {
-  late double height;
-  late double width;
+class CustomBackButton extends StatefulWidget {
   String heading;
   CustomBackButton({required this.heading});
+
+  @override
+  State<CustomBackButton> createState() => _CustomBackButtonState();
+}
+
+class _CustomBackButtonState extends State<CustomBackButton> {
+  late double height;
+
+  late double width;
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +25,10 @@ class CustomBackButton extends StatelessWidget {
         GestureDetector(
           onTap: (){
             Navigator.pop(context);
+            setState(() {
+
+            });
+
           },
           child: Stack(
             children: [
@@ -29,7 +40,7 @@ class CustomBackButton extends StatelessWidget {
                 ],
               ),
               Center(
-                child: Text(heading,style: TextStyle(
+                child: Text(widget.heading,style: TextStyle(
                   fontSize: 25,
                   fontWeight: FontWeight.bold,
                 ),

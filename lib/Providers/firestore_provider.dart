@@ -9,15 +9,95 @@ class FirestoreProvider with ChangeNotifier {
   final goalsCollection = FirebaseFirestore.instance.collection('goals');
   final currentInformationCollection = FirebaseFirestore.instance.collection('counters');
   final announcementCollection = FirebaseFirestore.instance.collection('announcements');
-  String currentChosenNews = 'placeholder';
+  String searchValue = '';
+  String currentUserFirstName = '';
+  String currentUserLastName = '';
+  String currentUserEmail = '';
+  String currentUserTitle = '';
+  String currentUserID = '';
+  bool currentUserIsAdmin = false;
+  bool currentUserAllProductsAllowed = false;
+  List currentUserProducts = [];
+  List currentUserQualifications = [];
+  Map news = {
+    'body':'',
+    'title':'',
+    'firstName':'',
+    "lastName":'',
+    "id":'',
+    "date":'',
+    "time":''
+  };
 
-  void UpdateCurrentChosenNews(String input){
-    currentChosenNews = input;
+  Future<void> fetchCurrentUserData() async {
+    Map<String, dynamic>? data;
+    await usersCollection!
+        .doc(_auth.currentUser!.uid)
+        .get()
+        .then((doc) => {data = doc.data()});
+    currentUserFirstName = data!['firstName'];
+    currentUserLastName = data!['lastName'];
+    currentUserEmail = data!['email'];
+    currentUserTitle = data!['title'];
+    currentUserID = data!['uid'];
+    currentUserIsAdmin = data!['isAdmin'];
+    currentUserAllProductsAllowed = data!['allProductsAllowed'];
+    currentUserProducts = data!['products'];
+    currentUserQualifications = data!['qualification'];
+  }
+
+  void UpdateNews(String body, String title, String firstName, String lastName,String id,String date,String time,String authorTitle){
+    news = {
+      'body':body,
+      'title':title,
+      'firstName':firstName,
+      "lastName":lastName,
+      "id":id,
+      "date":date,
+      "time":time,
+      "authorTitle":authorTitle
+    };
     notifyListeners();
   }
 
-  Stream<DocumentSnapshot<Map<String, dynamic>>> getSpecificNewsStream(){
-    Stream<DocumentSnapshot<Map<String, dynamic>>> stream = announcementCollection.doc(currentChosenNews).snapshots();
+  Future<void> deleteAnnouncement(String id) async {
+    await announcementCollection.doc(id).update({
+      'isDeleted':true
+    });
+    news = {
+      'body':'',
+      'title':'',
+      'firstName':'',
+      "lastName":'',
+      "id":'',
+      "date":'',
+      "time":''
+    };
+    notifyListeners();
+  }
+
+  void UpdateNewsWithoutNotifying(String body, String title, String firstName, String lastName,String id,String date,String time,String authorTitle){
+    news = {
+      'body':body,
+      'title':title,
+      'firstName':firstName,
+      "lastName":lastName,
+      "id":id,
+      "date":date,
+      "time":time,
+      "authorTitle":authorTitle
+    };
+  }
+
+
+
+  void UpdateSearchValue(String input){
+    searchValue = input;
+    notifyListeners();
+  }
+
+  Stream<QuerySnapshot> getSearchNewsStream(String searchWord){
+    Stream<QuerySnapshot> stream = announcementCollection.where('isDeleted',isEqualTo: false).where('forSearch', arrayContains: searchWord).snapshots();
     return stream;
   }
 

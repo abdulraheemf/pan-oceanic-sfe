@@ -67,6 +67,7 @@ class _AdminHomePageState extends State<AdminHomePage> {
     getNewClientStream = firestoreProvider.getCurrentNumberOfNewClientsStream();
     getCurrentNumberOfInvoicesStream = firestoreProvider.getCurrentNumberOfInvoicesStream();
     getLatestAnnouncementsStream = firestoreProvider.getLatestAnnouncementsStream(5);
+    firestoreProvider.fetchCurrentUserData();
   }
 
   @override
