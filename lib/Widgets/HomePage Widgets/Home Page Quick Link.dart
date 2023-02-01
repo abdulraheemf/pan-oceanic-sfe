@@ -18,31 +18,34 @@ class _HomePageQuickLinkState extends State<HomePageQuickLink> {
   Widget build(BuildContext context) {
     height = MediaQuery.of(context).size.height;
     width = MediaQuery.of(context).size.width;
-    return Container(
-      height: height*0.12,
-      width: width*0.3,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(10)
-      ),
-      child: Row(
-        children: [
-          SizedBox(width: width*0.01,),
-          Container(
-            height: height*0.09,
-            width: width*0.05,
-            decoration: BoxDecoration(
-              color: MyConstants.goodCardHomePageCardColor,
-              borderRadius: BorderRadius.circular(3)
+    return GestureDetector(
+      onTap: widget.onTap,
+      child: Container(
+        height: height*0.12,
+        width: width*0.3,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10)
+        ),
+        child: Row(
+          children: [
+            SizedBox(width: width*0.01,),
+            Container(
+              height: height*0.09,
+              width: width*0.05,
+              decoration: BoxDecoration(
+                color: MyConstants.goodCardHomePageCardColor,
+                borderRadius: BorderRadius.circular(3)
+              ),
+              child: Center(
+                child: Icon(widget.icon,size: 50,),
+              ),
             ),
-            child: Center(
-              child: Icon(widget.icon,size: 50,),
-            ),
-          ),
-          SizedBox(width: width*0.01,),
-          Expanded(child: Text(widget.description,style: TextStyle(fontSize: 18),))
+            SizedBox(width: width*0.01,),
+            Expanded(child: Text(widget.description,style: TextStyle(fontSize: 18),))
 
-        ],
+          ],
+        ),
       ),
     );
   }

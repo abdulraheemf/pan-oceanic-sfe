@@ -2,7 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pan_oceanic_sfe/Admin/Announcements/new_announcements_page.dart';
 import 'package:pan_oceanic_sfe/Admin/announcements_page.dart';
+import 'package:pan_oceanic_sfe/Admin/progress_page.dart';
 import 'package:pan_oceanic_sfe/Providers/firestore_provider.dart';
 import 'package:pan_oceanic_sfe/Services/constants.dart';
 import 'package:provider/provider.dart';
@@ -50,7 +52,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
        home: (FirebaseAuth.instance.currentUser==null)?Authentication():AdminHomePage(),
-      // home: AdminAnnouncements(),
+       //home: AdminProgressPage(),
       ),
     );
   }

@@ -58,9 +58,14 @@ class _LeftBarAnouncementWidgetState extends State<LeftBarAnouncementWidget> {
             } else if (snapshot.data!.docs.isEmpty) {
               return const Center(
                 child: Text(
+                    'There are no announcements!'),
+              );
+            } else if (snapshot.connectionState == ConnectionState.none){
+              return const Center(
+                child: Text(
                     'Could not load the latest announcements, Please try again'),
               );
-            } else {
+            }else {
               return ListView.separated(
                   itemCount: snapshot.data?.docs.length ?? 0,
                   separatorBuilder: (BuildContext context, int index) =>
@@ -81,8 +86,9 @@ class _LeftBarAnouncementWidgetState extends State<LeftBarAnouncementWidget> {
                         as Map<String, dynamic>;
                     String publisherFirstName = data['byFirstName'];
                     String publisherLastName = data['byLastName'];
+                    List readBy = data['readBy'];
                     return GestureDetector(
-                      onTap: () {
+                      onTap: () async {
                         firestoreProvider.UpdateNews(
                             data['body'],
                             data['title'],
@@ -92,8 +98,8 @@ class _LeftBarAnouncementWidgetState extends State<LeftBarAnouncementWidget> {
                             data['date'],
                             data['time'],
                             data['authorTitle']
-
                         );
+                        await firestoreProvider.MarkAsRead(data['id']);
                       },
                       child: Container(
                         decoration: BoxDecoration(
@@ -108,6 +114,14 @@ class _LeftBarAnouncementWidgetState extends State<LeftBarAnouncementWidget> {
                             children: [
                               Row(
                                 children: [
+                                  if(!readBy.contains(firestoreProvider.currentUserID))
+                                    CircleAvatar(
+                                    radius: 4.5,
+                                    backgroundColor: MyConstants.companyColor,
+                                  ),
+                                  SizedBox(
+                                    width: width * 0.003,
+                                  ),
                                   CircleAvatar(
                                     backgroundColor: chosenColor,
                                     child: Text(
@@ -374,8 +388,13 @@ class _TopRightSideBarState extends State<TopRightSideBar> {
           const Spacer(),
           (Provider.of<FirestoreProvider>(context).news['id'] == '')?const SizedBox():ElevatedButton(onPressed:(){
             ShowDialog.showErrorDialog(context, 'Are you sure?', 'Are you sure you wish to delete this announcement?', 'images/lotties/trash.json', 'Cancel', Colors.green, 'Delete', Colors.red, () async {
-              await Provider.of<FirestoreProvider>(context,listen: false).deleteAnnouncement(Provider.of<FirestoreProvider>(context,listen: false).news['id']);
-              removeDialog();
+              try{
+                await Provider.of<FirestoreProvider>(context,listen: false).deleteAnnouncement(Provider.of<FirestoreProvider>(context,listen: false).news['id']);
+              }catch(e){
+
+              } finally{
+                removeDialog();
+              }
             }, height, width);
           },
           style: ElevatedButton.styleFrom(

@@ -3,6 +3,10 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:provider/provider.dart';
+
+import '../../Providers/firestore_provider.dart';
+import '../../Services/constants.dart';
 
 class Announcements extends StatefulWidget {
   Stream<QuerySnapshot> stream;
@@ -43,9 +47,14 @@ class _AnnouncementsState extends State<Announcements> {
             } else if (snapshot.data!.docs.isEmpty) {
               return const Center(
                 child: Text(
+                    'There are no announcements!'),
+              );
+            }  else if (snapshot.connectionState == ConnectionState.none){
+              return const Center(
+                child: Text(
                     'Could not load the latest announcements, Please try again'),
               );
-            } else {
+            }else {
               return ListView.separated(
                   itemCount: snapshot.data?.docs.length ?? 0,
                   separatorBuilder: (BuildContext context, int index) =>
@@ -64,6 +73,7 @@ class _AnnouncementsState extends State<Announcements> {
                     as Map<String, dynamic>;
                     String publisherFirstName = data['byFirstName'];
                     String publisherLastName = data['byLastName'];
+                    List readBy = data['readBy'];
                     return Padding(
                       padding: EdgeInsets.fromLTRB(width * 0.018,
                           height * 0.03, width * 0.018, height * 0.03),
@@ -72,6 +82,14 @@ class _AnnouncementsState extends State<Announcements> {
                         children: [
                           Row(
                             children: [
+                              if(!readBy.contains(Provider.of<FirestoreProvider>(context,listen: false).currentUserID))
+                                CircleAvatar(
+                                  radius: 4.5,
+                                  backgroundColor: MyConstants.companyColor,
+                                ),
+                              SizedBox(
+                                width: width * 0.003,
+                              ),
                               CircleAvatar(
                                 backgroundColor: profileColors[
                                 Random().nextInt(profileColors.length)],

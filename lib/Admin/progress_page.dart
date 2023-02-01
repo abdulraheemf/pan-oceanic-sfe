@@ -22,6 +22,13 @@ class _AdminProgressPageState extends State<AdminProgressPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CustomBackButton(heading: 'PROGRESS',),
+            Row(
+              children: [
+                Expanded(child: Center(child: Text('HELLO'),)),
+                Container(height: height*0.9,width: width*0.0001,color: Colors.black,),
+                Expanded(child: Center(child: Text('HELLO'),)),
+              ],
+            )
           ],
         ),
       ),

@@ -263,11 +263,41 @@ class _AdminHomePageState extends State<AdminHomePage> {
                         children: [
                           Text('Quick Links',style: TextStyle(color: Colors.black.withOpacity(0.5)),),
                           SizedBox(height: height*0.01,),
-                          HomePageQuickLink(description: 'Create New Account', icon: Icons.add, onTap: () {  },),
+                          HomePageQuickLink(description: 'Create New Account', icon: Icons.add, onTap: () {
+                            Navigator.push(context, PageRouteBuilder(pageBuilder: (context, animation, secondaryAnimation) {
+                              return FadeTransition(
+                                opacity: animation,
+                                child: const AdminSFEsPage(),
+                              );
+                            },
+                              transitionDuration: const Duration(milliseconds: 180),
+                            ),
+                            );
+                          },),
                           SizedBox(height: height*0.02,),
-                          HomePageQuickLink(description: 'View Company Performance', icon: Icons.show_chart, onTap: () {  },),
+                          HomePageQuickLink(description: 'View Company Performance', icon: Icons.show_chart, onTap: () {
+                            Navigator.push(context, PageRouteBuilder(pageBuilder: (context, animation, secondaryAnimation) {
+                              return FadeTransition(
+                                opacity: animation,
+                                child: const AdminProgressPage(),
+                              );
+                            },
+                              transitionDuration: const Duration(milliseconds: 180),
+                            ),
+                            );
+                          },),
                           SizedBox(height: height*0.02,),
-                          HomePageQuickLink(description: 'Check Current SFEs', icon: Icons.people, onTap: () {  },),
+                          HomePageQuickLink(description: 'Check Current SFEs', icon: Icons.people, onTap: () {
+                            Navigator.push(context, PageRouteBuilder(pageBuilder: (context, animation, secondaryAnimation) {
+                              return FadeTransition(
+                                opacity: animation,
+                                child: const AdminSFEsPage(),
+                              );
+                            },
+                              transitionDuration: const Duration(milliseconds: 180),
+                            ),
+                            );
+                          },),
                         ],
                       ),
                       SizedBox(width: width*0.03,),

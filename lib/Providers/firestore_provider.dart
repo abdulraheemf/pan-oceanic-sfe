@@ -1,8 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+
+// announcementCollection.get().then((value) => value.docs.forEach((element) {
+// element.reference.update({'readBy':FieldValue.arrayUnion([currentUserID])});
+// }));
+// When creating a new user
 class FirestoreProvider with ChangeNotifier {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final usersCollection = FirebaseFirestore.instance.collection('users');
@@ -44,6 +50,12 @@ class FirestoreProvider with ChangeNotifier {
     currentUserAllProductsAllowed = data!['allProductsAllowed'];
     currentUserProducts = data!['products'];
     currentUserQualifications = data!['qualification'];
+  }
+
+  Future<void> MarkAsRead(String id)async {
+    await announcementCollection.doc(id).update({
+      'readBy':FieldValue.arrayUnion([currentUserID])
+    });
   }
 
   void UpdateNews(String body, String title, String firstName, String lastName,String id,String date,String time,String authorTitle){
@@ -89,7 +101,39 @@ class FirestoreProvider with ChangeNotifier {
     };
   }
 
-
+  Future<void> addAnnouncement(String title,String body) async {
+    String currentDate = DateFormat.yMMMMd('en_US').format(DateTime.now());
+    final announcementDocument = announcementCollection.doc();
+    String currentTime = DateFormat.jm().format(DateTime.now());
+    String searchTitle = title.toLowerCase();
+    List<String> searchList = [];
+    String temp = "";
+    for(int i = 0;i<searchTitle.length;i++){
+      temp = temp + searchTitle[i];
+      searchList.add(temp);
+    }
+    try{
+      await announcementDocument.set({
+        'authorTitle':currentUserTitle,
+        'body':body,
+        'byFirstName':currentUserFirstName,
+        'byID':currentUserID,
+        'byLastName':currentUserLastName,
+        'date':currentDate,
+        'forSearch':searchList,
+        'id':announcementDocument.id,
+        'isDeleted':false,
+        'time':currentTime,
+        'timestamp':FieldValue.serverTimestamp(),
+        'title':title,
+        'readBy':[]
+      });
+    } catch(e){
+      throw Exception();
+    } finally{
+      notifyListeners();
+    }
+  }
 
   void UpdateSearchValue(String input){
     searchValue = input;
@@ -192,5 +236,7 @@ class FirestoreProvider with ChangeNotifier {
         .then((doc) => {data = doc.data()});
     return data!['isAdmin'];
   }
+
+
 
 }
