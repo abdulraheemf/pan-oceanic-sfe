@@ -4,8 +4,8 @@ import 'package:pan_oceanic_sfe/Widgets/Announcements%20Widgets/Custom%20Buttons
 import 'package:pan_oceanic_sfe/Widgets/General%20Widgets/back_button%20Widget.dart';
 import 'package:provider/provider.dart';
 
-import '../Providers/firestore_provider.dart';
-import '../Widgets/Announcements Widgets/Announcements Main Page Widgets.dart';
+import '../../Providers/firestore_provider.dart';
+import '../../Widgets/Announcements Widgets/Announcements Main Page Widgets.dart';
 
 class AdminAnnouncements extends StatefulWidget {
   const AdminAnnouncements({Key? key}) : super(key: key);

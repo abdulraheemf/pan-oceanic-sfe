@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:lottie/lottie.dart';
 import 'package:pan_oceanic_sfe/Admin/SFEs_page.dart';
-import 'package:pan_oceanic_sfe/Admin/announcements_page.dart';
-import 'package:pan_oceanic_sfe/Admin/goals_page.dart';
+import 'package:pan_oceanic_sfe/Admin/Announcements/announcements_page.dart';
+import 'package:pan_oceanic_sfe/Admin/Progress/goals_page.dart';
 import 'package:pan_oceanic_sfe/Admin/invoices_page.dart';
 import 'package:pan_oceanic_sfe/Admin/myAccount_page.dart';
-import 'package:pan_oceanic_sfe/Admin/progress_page.dart';
+import 'package:pan_oceanic_sfe/Admin/Progress/progress_page.dart';
 import 'package:pan_oceanic_sfe/Admin/settings_page.dart';
 import 'package:pan_oceanic_sfe/Auth/auth.dart';
 import 'package:pan_oceanic_sfe/Customs/custom_alert.dart';
@@ -117,18 +117,6 @@ class _AdminHomePageState extends State<AdminHomePage> {
                       return FadeTransition(
                         opacity: animation,
                         child: const AdminProgressPage(),
-                      );
-                    },
-                      transitionDuration: const Duration(milliseconds: 180),
-                    ),
-                    );
-                  },),
-                  SizedBox(height: height*0.01,),
-                  HomePageLeftColumnEntry(icon: Icons.show_chart, description: 'Goals', isHome: false,onTap: (){
-                    Navigator.push(context, PageRouteBuilder(pageBuilder: (context, animation, secondaryAnimation) {
-                      return FadeTransition(
-                        opacity: animation,
-                        child: const AdminGoalsPage(),
                       );
                     },
                       transitionDuration: const Duration(milliseconds: 180),

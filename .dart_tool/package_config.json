@@ -320,6 +320,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "restart_app",
+      "rootUri": "file:///C:/Users/abdul/AppData/Local/Pub/Cache/hosted/pub.dev/restart_app-1.1.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
+    },
+    {
       "name": "sky_engine",
       "rootUri": "file:///C:/src/flutter/flutter/bin/cache/pkg/sky_engine",
       "packageUri": "lib/",
@@ -392,7 +398,7 @@
       "languageVersion": "2.18"
     }
   ],
-  "generated": "2023-02-01T11:53:58.932798Z",
+  "generated": "2023-02-22T23:53:34.005654Z",
   "generator": "pub",
   "generatorVersion": "2.19.0"
 }

@@ -183,6 +183,24 @@ class FirestoreProvider with ChangeNotifier {
     return data!['firstName'];
   }
 
+  Future updateGoals(String SFEgoal, String invoicesGOAL, String insuranceNotCompleted,String newClients, String insuranceCompleted) async {
+    await goalsCollection.doc('SFE').update({
+      'numberOfSFEs':int.parse(SFEgoal)
+    });
+    await goalsCollection.doc('insuranceCompleted').update({
+      'amount':int.parse(insuranceCompleted)
+    });
+    await goalsCollection.doc('insuranceNotCompleted').update({
+      'amount':int.parse(insuranceNotCompleted)
+    });
+    await goalsCollection.doc('newClients').update({
+      'number':int.parse(newClients)
+    });
+    await goalsCollection.doc('numberOfInvoices').update({
+      'number':int.parse(invoicesGOAL)
+    });
+  }
+
   Future getCurrentSFEGoal() async {
     Map<String, dynamic>? data;
     await goalsCollection!

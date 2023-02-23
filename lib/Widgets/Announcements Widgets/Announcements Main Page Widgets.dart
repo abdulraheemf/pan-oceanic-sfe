@@ -383,7 +383,7 @@ class _TopRightSideBarState extends State<TopRightSideBar> {
             );
           },
           style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.green,
+              backgroundColor: MyConstants.homePageLeftMenuColor
           ), child: const Text('Post an Announcement!'),),
           const Spacer(),
           (Provider.of<FirestoreProvider>(context).news['id'] == '')?const SizedBox():ElevatedButton(onPressed:(){

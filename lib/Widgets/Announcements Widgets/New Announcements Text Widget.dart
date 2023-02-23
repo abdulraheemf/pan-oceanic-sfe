@@ -19,6 +19,13 @@ class _AnnouncementTextInputBoxState extends State<AnnouncementTextInputBox> {
         alignment: Alignment.topLeft,
         child: TextFormField(
           controller: widget.control,
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Don\'t forget to fill this!';
+            }
+            return null;
+          },
+
           style: const TextStyle(
             fontSize: 18
           ),
